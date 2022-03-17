@@ -8,6 +8,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Habits_Tracker_DT_Course" />
+        android:theme="@style/Theme.Habits_Tracker_DT_Course">
+        <activity
+            android:name=".activity.AddHabitActivity"
+            android:exported="false"
+            android:label="@string/add_habit"
+            android:parentActivityName=".activity.HabitsActivity"
+            />
+        <activity
+            android:name=".activity.HabitsActivity"
+            android:exported="true"
+            android:label="@string/habits_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

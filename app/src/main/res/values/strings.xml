@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Habits_Tracker_DT_Course</string>
+    <string name="app_name">Habits tracker</string>
+    <string name="habits_activity">Your habits</string>
+    <string name="add_habit">Add new habit</string>
+    <string name="title_input_hint">Title</string>
+    <string name="useful_radio_value">Useful</string>
+    <string name="harmful_radio_value">Harmful</string>
+    <string name="repetition_count_hint">Count</string>
+    <string name="frequency_hint">Frequency</string>
+    <string name="habit_description_hint">Description</string>
+    <string name="create_habit_button_text">Create</string>
+    <string name="edit_habit">Edit habit</string>
+    <string name="edit_button_label">Save</string>
+
+    <string-array name="priority_items">
+        <item>Normal</item>
+        <item>Low</item>
+        <item>High</item>
+    </string-array>
 </resources>

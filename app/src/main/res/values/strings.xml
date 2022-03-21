@@ -11,6 +11,8 @@
     <string name="create_habit_button_text">Create</string>
     <string name="edit_habit">Edit habit</string>
     <string name="edit_button_label">Save</string>
+    <string name="frequency_card_label">Frequency: %1$d</string>
+    <string name="count_card_label">Count: %1$d</string>
 
     <string-array name="priority_items">
         <item>Normal</item>

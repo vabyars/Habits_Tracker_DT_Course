@@ -41,7 +41,6 @@ class HabitsActivity : AppCompatActivity() {
 
 
     override fun onSaveInstanceState(outState: Bundle) {
-
         outState.putSerializable(IntentCodes.HABITS.name, adapter.habitsList)
 
         super.onSaveInstanceState(outState)

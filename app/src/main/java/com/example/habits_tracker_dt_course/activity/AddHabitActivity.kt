@@ -3,6 +3,7 @@ package com.example.habits_tracker_dt_course.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.habits_tracker_dt_course.*
@@ -13,6 +14,18 @@ import com.example.habits_tracker_dt_course.databinding.ActivityAddHabitBinding
 
 class AddHabitActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddHabitBinding
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home){
+            finish()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +38,7 @@ class AddHabitActivity : AppCompatActivity() {
         }
 
         binding.createHabitButton.setOnClickListener {
-            val habit = getHabitFromFormData()
-            if (habit != null){
-                println(habit)
+            getHabitFromFormData()?.let { habit ->
                 var newIntent = Intent(this, HabitsActivity::class.java).run {
                     putExtra(IntentCodes.NEW_HABIT.name, habit)
                 }
@@ -41,10 +52,7 @@ class AddHabitActivity : AppCompatActivity() {
                 }
                 setResult(Activity.RESULT_OK, newIntent)
                 finish()
-            }
-            else {
-                Toast.makeText(applicationContext, "All fields must be filled in", Toast.LENGTH_SHORT).show()
-            }
+            } ?: Toast.makeText(applicationContext, "All fields must be filled in", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -56,11 +64,7 @@ class AddHabitActivity : AppCompatActivity() {
         binding.title.setText(habitToEdit.title)
         binding.habitDescription.setText((habitToEdit.description))
 
-        when(habitToEdit.priority) {
-            HabitPriority.Low -> binding.habitPriorities.setSelection(1)
-            HabitPriority.Normal -> binding.habitPriorities.setSelection(0)
-            HabitPriority.High -> binding.habitPriorities.setSelection(2)
-        }
+        binding.habitPriorities.setSelection(habitToEdit.priority.value)
 
         when(habitToEdit.habitType){
             HabitType.Useful -> binding.usefulRadio.isChecked = true

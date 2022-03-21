@@ -43,10 +43,8 @@ class HabitListAdapter(
 
             itemView.typeDot.setImageResource(typeDot)
 
-            val habitCountText = "Count: ${habit.repetitionCount}"
-            itemView.habitCountListItem.text = habitCountText
-            val habitFrequencyText = "Frequency: ${habit.frequency}"
-            itemView.habitFrequencyListItem.text = habitFrequencyText
+            itemView.habitCountListItem.text = itemView.context.getString(R.string.count_card_label, habit.repetitionCount)
+            itemView.habitFrequencyListItem.text = itemView.context.getString(R.string.frequency_card_label, habit.frequency)
 
             itemView.habitsListItem.setOnClickListener {
                 onClickListItem(habit, position)

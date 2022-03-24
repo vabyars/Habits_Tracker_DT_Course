@@ -1,22 +1,20 @@
-package com.example.habits_tracker_dt_course
+package com.example.habits_tracker_dt_course.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.habits_tracker_dt_course.Habit
+import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.constants.HabitPriority
 import com.example.habits_tracker_dt_course.constants.HabitType
+import com.example.habits_tracker_dt_course.fragments.HabitsMainFragmentDirections
 import kotlinx.android.synthetic.main.habit_list_item.view.*
 
 
-class HabitListAdapter(
-    val onClickListItem: (Habit, Int) -> Unit
-) :
+class HabitListAdapter :
     RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
-
-    val habitsList: Array<Habit>
-        get() = habits.toTypedArray()
-
 
     private var habits = mutableListOf<Habit>()
 
@@ -24,7 +22,17 @@ class HabitListAdapter(
     inner class ViewHolder(private val itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bind(habit: Habit, position: Int) {
+        fun bind(habit: Habit) {
+
+            itemView.habitsListItem.setOnClickListener {
+                val action = HabitsMainFragmentDirections.actionFragmentHabitsMainToAddEditFragment(
+                    itemView.context.resources.getString(R.string.edit_habit)
+                )
+                action.habitToEdit = habit
+
+                Navigation.findNavController(it).navigate(action)
+            }
+
             itemView.habitTitleListItem.text = habit.title
             itemView.habitDescriptionListItem.text = habit.description
             itemView.habitPriorityText.text = habit.priority.toString()
@@ -34,36 +42,15 @@ class HabitListAdapter(
                 HabitPriority.High -> R.drawable.high_priority_dot
             }
             itemView.priorityDot.setImageResource(priorityDot)
-            itemView.habitTypeText.text = habit.habitType.toString()
-
-            val typeDot = when (habit.habitType) {
-                HabitType.Useful -> R.drawable.useful_type_dot
-                HabitType.Harmful -> R.drawable.harmful_type_dot
-            }
-
-            itemView.typeDot.setImageResource(typeDot)
 
             itemView.habitCountListItem.text = itemView.context.getString(R.string.count_card_label, habit.repetitionCount)
             itemView.habitFrequencyListItem.text = itemView.context.getString(R.string.frequency_card_label, habit.frequency)
 
-            itemView.habitsListItem.setOnClickListener {
-                onClickListItem(habit, position)
-            }
         }
     }
 
-    fun addItem(habit: Habit) {
-        habits.add(habit)
-        notifyItemInserted(itemCount - 1)
-    }
-
-    fun changeItem(habit: Habit, position: Int) {
-        habits[position] = habit
-        notifyItemChanged(position)
-    }
-
-    fun restoreItems(newHabits: Array<Habit>) {
-        habits = newHabits.toMutableList()
+    fun changeListOfHabits(newHabits: MutableList<Habit>) {
+        habits = newHabits
         notifyDataSetChanged()
     }
 
@@ -76,7 +63,7 @@ class HabitListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(habits[position], position)
+        holder.bind(habits[position])
     }
 
     override fun getItemCount(): Int = habits.size

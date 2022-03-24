@@ -14,6 +14,20 @@
     <string name="frequency_card_label">Frequency: %1$d</string>
     <string name="count_card_label">Count: %1$d</string>
 
+    <string name="view_pager_useful">Useful</string>
+    <string name="view_pager_harmful">Harmful</string>
+    <string name="nav_header_text">Habits tracker</string>
+    <string name="about_app">About app</string>
+    <string name="exit_title">Are you sure you want to exit?</string>
+    <string name="exit_message">Habit will not be saved</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="not_filled_data_toast_message">All fields must be filled in</string>
+    <string name="app_powered_by">App powered by Vabyars</string>
+    <string name="app_description">Create a habit list to build good habits and healthy lifestyle with Habit tracker</string>
+    <string name="app_version_text">HabitsTracker v4.0</string>
+    <string name="git_link_text">Github: github.com/vabyars </string>
+
     <string-array name="priority_items">
         <item>Normal</item>
         <item>Low</item>

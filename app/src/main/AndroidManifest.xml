@@ -8,13 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Habits_Tracker_DT_Course">
-        <activity
-            android:name=".activity.AddHabitActivity"
-            android:exported="false"
-            android:label="@string/add_habit"
-            android:parentActivityName=".activity.HabitsActivity"
-            />
+        android:theme="@style/CustomTheme">
         <activity
             android:name=".activity.HabitsActivity"
             android:exported="true"

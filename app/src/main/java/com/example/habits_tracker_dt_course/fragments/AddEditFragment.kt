@@ -5,8 +5,12 @@ import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.habits_tracker_dt_course.Habit
 import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.constants.HabitPriority
@@ -18,12 +22,8 @@ import kotlinx.android.synthetic.main.activity_add_habit.*
 
 class AddEditFragment : Fragment(R.layout.activity_add_habit) {
 
-    private val habitToEdit: Habit? by lazy {
-        AddEditFragmentArgs.fromBundle(requireArguments()).habitToEdit
-    }
-    private val navController: NavController by lazy {
-        Navigation.findNavController(requireView())
-    }
+    private val args: AddEditFragmentArgs by navArgs()
+    private val habitToEdit by lazy { args.habitToEdit  }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +36,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
                 .setTitle(R.string.exit_title)
                 .setMessage(R.string.exit_message)
                 .setPositiveButton(R.string.yes) { _, _ ->
-                    navController.popBackStack()
+                    findNavController().popBackStack()
                 }
                 .setNegativeButton(R.string.no) { _, _ -> }
                 .setCancelable(true)
@@ -104,7 +104,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
                 habitToEdit?.let {
                     HabitsStorage.replaceHabit(habitToEdit!!, habit)
                 } ?: HabitsStorage.addHabit(habit)
-                navController.popBackStack()
+                findNavController().popBackStack()
             } ?: Toast.makeText(context, R.string.not_filled_data_toast_message, Toast.LENGTH_SHORT).show()
         }
     }

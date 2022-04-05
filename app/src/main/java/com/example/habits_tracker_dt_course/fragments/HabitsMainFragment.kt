@@ -5,16 +5,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_habits_main.*
 
 class HabitsMainFragment : Fragment(R.layout.fragment_habits_main) {
-
-    private val navController: NavController by lazy {
-        Navigation.findNavController(requireView())
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -28,7 +25,7 @@ class HabitsMainFragment : Fragment(R.layout.fragment_habits_main) {
 
         addNewHabitButton.setOnClickListener {
             val action = HabitsMainFragmentDirections.actionFragmentHabitsMainToAddEditFragment(getString(R.string.add_habit))
-            navController.navigate(action)
+            findNavController().navigate(action)
         }
 
         super.onViewCreated(view, savedInstanceState)

@@ -1,76 +1,44 @@
 package com.example.habits_tracker_dt_course.activity
 
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.habits_tracker_dt_course.Habit
-import com.example.habits_tracker_dt_course.HabitListAdapter
-import com.example.habits_tracker_dt_course.constants.IntentCodes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.databinding.ActivityHabitsBinding
+import kotlinx.android.synthetic.main.activity_habits.*
 
 
 class HabitsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHabitsBinding
 
-
-    private val adapter: HabitListAdapter by lazy {
-        HabitListAdapter { habit, position ->
-
-            val intent = Intent(this, AddHabitActivity::class.java).apply {
-                putExtra(IntentCodes.HABIT_POSITION.name, position)
-                putExtra(IntentCodes.HABIT_FOR_CHANGE.name, habit)
-            }
-            changeHabitLauncher.launch(intent)
-        }
+    private val navController: NavController by lazy {
+        findNavController(R.id.habitsActivityFragment)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHabitsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_habits)
 
-        binding.habitsList.adapter = adapter
+        setSupportActionBar(toolbarHabitsActivity)
+        val appBarConfiguration = AppBarConfiguration(navController.graph, navigationDrawerLayout)
 
-        binding.addNewHabitButton.setOnClickListener {
-            val intent = Intent(this, AddHabitActivity::class.java)
-            addHabitLauncher.launch(intent)
+        toolbarHabitsActivity.setupWithNavController(navController, appBarConfiguration)
+
+        navigationView.setupWithNavController(navController)
+        if (savedInstanceState == null) {
+            navController.setGraph(R.navigation.nav_graph)
         }
     }
 
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(IntentCodes.HABITS.name, adapter.habitsList)
-
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val habits =
-            savedInstanceState.getSerializable(IntentCodes.HABITS.name) as Array<Habit>
-        if (habits.isNotEmpty()) {
-            adapter.restoreItems(habits)
+    override fun onBackPressed() {
+        if (navigationDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            navigationDrawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
-
-    private val addHabitLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val newHabit = data?.getSerializableExtra(IntentCodes.NEW_HABIT.name) as Habit
-                adapter.addItem(newHabit)
-            }
-        }
-
-    private val changeHabitLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val habit = data?.getSerializableExtra(IntentCodes.CHANGED_HABIT.name) as Habit
-                val position = data.getIntExtra(IntentCodes.HABIT_POSITION.name, 0)
-                adapter.changeItem(habit, position)
-            }
-        }
 }

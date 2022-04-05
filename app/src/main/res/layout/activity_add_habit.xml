@@ -1,129 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    tools:context=".activity.AddHabitActivity">
+    android:padding="5dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-    <Spinner
-        android:id="@+id/habitPriorities"
-        android:layout_width="270dp"
-        android:layout_height="48dp"
-        android:dropDownWidth="wrap_content"
-        android:entries="@array/priority_items"
-        app:layout_constraintBottom_toTopOf="@+id/habitTypes"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/habitDescription" />
-
-    <EditText
-        android:id="@+id/habitFrequency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/frequency_hint"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/repetitionCount" />
-
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="270dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="@string/title_input_hint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/habitDescription"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.47000003"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
-
-    <RadioGroup
-        android:id="@+id/habitTypes"
-        android:layout_width="178dp"
-        android:layout_height="97dp"
-        app:layout_constraintBottom_toTopOf="@+id/repetitionCount"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/habitPriorities">
-
-        <RadioButton
-            android:id="@+id/usefulRadio"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/useful_radio_value"
-            android:checked="true"/>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
-        <RadioButton
-            android:id="@+id/harmfulRadio"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/habitPriorities"
+            android:layout_width="270dp"
+            android:layout_height="48dp"
+            android:dropDownWidth="wrap_content"
+            android:entries="@array/priority_items"
+            app:layout_constraintBottom_toTopOf="@+id/habitTypes"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/habitDescription" />
+
+        <EditText
+            android:id="@+id/habitFrequency"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/harmful_radio_value" />
-    </RadioGroup>
+            android:ems="10"
+            android:hint="@string/frequency_hint"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/repetitionCount" />
 
-    <EditText
-        android:id="@+id/habitDescription"
-        android:layout_width="270dp"
-        android:layout_height="80dp"
-        android:ems="10"
-        android:gravity="bottom"
-        android:hint="@string/habit_description_hint"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/habitPriorities"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="270dp"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="@string/title_input_hint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/habitDescription"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:layout_constraintVertical_bias="0.47000003"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
-    <EditText
-        android:id="@+id/repetitionCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/repetition_count_hint"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/habitFrequency"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/habitTypes" />
+        <RadioGroup
+            android:id="@+id/habitTypes"
+            android:layout_width="178dp"
+            android:layout_height="97dp"
+            app:layout_constraintBottom_toTopOf="@+id/repetitionCount"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/habitPriorities">
 
-    <Button
-        android:id="@+id/createHabitButton"
-        android:layout_width="147dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="154dp"
-        android:text="@string/create_habit_button_text"
-        android:textSize="20sp"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="0.561" />
+            <RadioButton
+                android:id="@+id/usefulRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:checked="true"
+                android:text="@string/useful_radio_value" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+            <RadioButton
+                android:textSize="20sp"
+                android:id="@+id/harmfulRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/harmful_radio_value" />
+        </RadioGroup>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        <EditText
+            android:id="@+id/habitDescription"
+            android:layout_width="270dp"
+            android:layout_height="80dp"
+            android:ems="10"
+            android:gravity="bottom"
+            android:hint="@string/habit_description_hint"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/habitPriorities"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
+        <EditText
+            android:id="@+id/repetitionCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/repetition_count_hint"
+            android:inputType="numberDecimal"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/habitFrequency"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/habitTypes" />
+
+        <Button
+            android:id="@+id/createHabitButton"
+            android:layout_width="147dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="158dp"
+            android:layout_marginEnd="154dp"
+            android:text="@string/create_habit_button_text"
+            android:textSize="20sp"
+            app:cornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.541"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+<!--    </ScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,68 +47,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
 
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/habitDescriptionListItem"
         app:layout_constraintTop_toBottomOf="@+id/habitDescriptionListItem">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+
+        <ImageView
+            android:id="@+id/priorityDot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            android:padding="5dp" />
 
-            <ImageView
-                android:id="@+id/typeDot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:padding="5dp" />
-
-            <TextView
-                android:id="@+id/habitTypeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Useful"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <TextView
+            android:id="@+id/habitPriorityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="82dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <ImageView
-                android:id="@+id/priorityDot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp" />
-
-
-            <TextView
-                android:id="@+id/habitPriorityText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="High"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
+            android:text="High"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView

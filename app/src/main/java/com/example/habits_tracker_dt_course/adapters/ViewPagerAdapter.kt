@@ -12,7 +12,7 @@ class ViewPagerAdapter(
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment = when (position) {
-        0 -> HabitsListFragment.newInstance { habit -> habit.habitType == HabitType.Useful }
-        else -> HabitsListFragment.newInstance{ habit -> habit.habitType == HabitType.Harmful }
+        0 -> HabitsListFragment.newInstance(HabitType.Useful)
+        else -> HabitsListFragment.newInstance(HabitType.Harmful)
     }
 }

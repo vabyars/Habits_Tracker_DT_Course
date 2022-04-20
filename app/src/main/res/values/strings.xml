@@ -28,6 +28,8 @@
     <string name="app_version_text">HabitsTracker v4.0</string>
     <string name="git_link_text">Github: github.com/vabyars </string>
 
+    <string name="find_or_filter_title">Find or filter habits</string>
+    <string name="search">Search</string>
     <string-array name="priority_items">
         <item>Normal</item>
         <item>Low</item>

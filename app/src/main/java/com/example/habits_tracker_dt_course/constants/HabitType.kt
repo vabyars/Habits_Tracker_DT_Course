@@ -1,6 +1,10 @@
 package com.example.habits_tracker_dt_course.constants
 
-enum class HabitType {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+enum class HabitType : Parcelable {
     Useful,
     Harmful
 }

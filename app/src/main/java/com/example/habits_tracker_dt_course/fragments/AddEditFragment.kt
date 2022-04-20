@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -16,6 +17,7 @@ import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.constants.HabitPriority
 import com.example.habits_tracker_dt_course.constants.HabitType
 import com.example.habits_tracker_dt_course.store.HabitsStorage
+import com.example.habits_tracker_dt_course.viewModels.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_add_habit.*
 
@@ -24,6 +26,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
 
     private val args: AddEditFragmentArgs by navArgs()
     private val habitToEdit by lazy { args.habitToEdit  }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,8 +105,8 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
         createHabitButton.setOnClickListener {
             getHabitFromFormData()?.let { habit ->
                 habitToEdit?.let {
-                    HabitsStorage.replaceHabit(habitToEdit!!, habit)
-                } ?: HabitsStorage.addHabit(habit)
+                    mainViewModel.replaceHabit(habitToEdit!!, habit)
+                } ?: mainViewModel.addHabit(habit)
                 findNavController().popBackStack()
             } ?: Toast.makeText(context, R.string.not_filled_data_toast_message, Toast.LENGTH_SHORT).show()
         }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habits_tracker_dt_course.Habit
 import com.example.habits_tracker_dt_course.R
@@ -30,7 +31,7 @@ class HabitListAdapter :
                 )
                 action.habitToEdit = habit
 
-                Navigation.findNavController(it).navigate(action)
+                findNavController(it).navigate(action)
             }
 
             itemView.habitTitleListItem.text = habit.title

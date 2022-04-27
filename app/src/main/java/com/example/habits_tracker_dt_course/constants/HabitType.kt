@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-enum class HabitType : Parcelable {
-    Useful,
-    Harmful
+enum class HabitType(val value: Int) : Parcelable {
+    Useful(0),
+    Harmful(1)
 }

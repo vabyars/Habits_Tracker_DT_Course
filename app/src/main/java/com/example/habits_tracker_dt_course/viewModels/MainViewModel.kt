@@ -1,34 +1,41 @@
 package com.example.habits_tracker_dt_course.viewModels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.room.Room
 import com.example.habits_tracker_dt_course.Habit
-import com.example.habits_tracker_dt_course.store.HabitsStorage
+import com.example.habits_tracker_dt_course.store.AppDatabase
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
 
     private val currentHabitsLiveData: MutableLiveData<MutableList<Habit>> = MutableLiveData()
     val currentHabits: LiveData<MutableList<Habit>> get() = currentHabitsLiveData
 
+    //обернуть в LiveData запросы
+    private val appDatabase = AppDatabase.getHabitsDatabase(application.applicationContext)
+    private val habitsDao = appDatabase.habitsDao()
+
     init {
-        currentHabitsLiveData.value = HabitsStorage.habitsList
+        currentHabitsLiveData.value = habitsDao.selectAllHabits().toMutableList()
     }
+
 
     fun addHabit(newHabit: Habit) {
         cleanHabitsFilter()
-        HabitsStorage.addHabit(newHabit)
+        habitsDao.insertHabit(newHabit)
     }
 
     fun replaceHabit(oldHabit: Habit, newHabit: Habit) {
         cleanHabitsFilter()
-        HabitsStorage.replaceHabit(oldHabit, newHabit)
+        habitsDao.updateHabit(newHabit)
     }
 
     fun sortHabits(text: String) { //Поиск по привычкам
         if (text.isNotEmpty()) {
-            val sortedHabits = HabitsStorage.habitsList.filter {
+            val sortedHabits = habitsDao.selectAllHabits().filter {
                 it.title.contains(text, ignoreCase = true)
             }
             currentHabitsLiveData.value = sortedHabits.toMutableList()
@@ -38,7 +45,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun cleanHabitsFilter() {
-        currentHabitsLiveData.value = HabitsStorage.habitsList
+        currentHabitsLiveData.value = habitsDao.selectAllHabits().toMutableList()
     }
 
 }

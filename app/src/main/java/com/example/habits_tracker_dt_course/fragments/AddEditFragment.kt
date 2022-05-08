@@ -101,7 +101,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
         createHabitButton.setOnClickListener {
             getHabitFromFormData()?.let { habit ->
                 habitToEdit?.let {
-                    mainViewModel.replaceHabit(habitToEdit!!, habit)
+                    mainViewModel.replaceHabit(habit)
                 } ?: mainViewModel.addHabit(habit)
                 findNavController().popBackStack()
             } ?: Toast.makeText(context, R.string.not_filled_data_toast_message, Toast.LENGTH_SHORT).show()

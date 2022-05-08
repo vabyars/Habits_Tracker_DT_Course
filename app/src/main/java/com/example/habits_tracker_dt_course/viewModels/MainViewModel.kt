@@ -4,9 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.habits_tracker_dt_course.Habit
 import com.example.habits_tracker_dt_course.store.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -14,38 +17,48 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val currentHabitsLiveData: MutableLiveData<MutableList<Habit>> = MutableLiveData()
     val currentHabits: LiveData<MutableList<Habit>> get() = currentHabitsLiveData
 
-    //обернуть в LiveData запросы
     private val appDatabase = AppDatabase.getHabitsDatabase(application.applicationContext)
     private val habitsDao = appDatabase.habitsDao()
 
     init {
-        currentHabitsLiveData.value = habitsDao.selectAllHabits().toMutableList()
+        viewModelScope.launch(Dispatchers.IO){
+            currentHabitsLiveData.postValue(habitsDao.selectAllHabits().toMutableList())
+        }
     }
 
 
     fun addHabit(newHabit: Habit) {
         cleanHabitsFilter()
-        habitsDao.insertHabit(newHabit)
+        viewModelScope.launch(Dispatchers.IO){
+            habitsDao.insertHabit(newHabit)
+        }
     }
 
-    fun replaceHabit(oldHabit: Habit, newHabit: Habit) {
+    fun replaceHabit(newHabit: Habit) {
         cleanHabitsFilter()
-        habitsDao.updateHabit(newHabit)
+        viewModelScope.launch(Dispatchers.IO){
+            habitsDao.updateHabit(newHabit)
+        }
+
     }
 
     fun sortHabits(text: String) { //Поиск по привычкам
-        if (text.isNotEmpty()) {
-            val sortedHabits = habitsDao.selectAllHabits().filter {
-                it.title.contains(text, ignoreCase = true)
+        viewModelScope.launch(Dispatchers.IO) {
+            if (text.isNotEmpty()) {
+                val sortedHabits =  habitsDao.selectAllHabits().filter {
+                    it.title.contains(text, ignoreCase = true)
+                }
+                currentHabitsLiveData.postValue(sortedHabits.toMutableList())
+            } else {
+                cleanHabitsFilter()
             }
-            currentHabitsLiveData.value = sortedHabits.toMutableList()
-        } else {
-            cleanHabitsFilter()
         }
     }
 
     fun cleanHabitsFilter() {
-        currentHabitsLiveData.value = habitsDao.selectAllHabits().toMutableList()
+        viewModelScope.launch(Dispatchers.IO){
+            currentHabitsLiveData.postValue(habitsDao.selectAllHabits().toMutableList())
+        }
     }
 
 }

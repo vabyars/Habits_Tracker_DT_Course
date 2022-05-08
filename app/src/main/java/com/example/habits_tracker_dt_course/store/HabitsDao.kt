@@ -8,21 +8,12 @@ import com.example.habits_tracker_dt_course.Habit
 interface HabitsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHabit(habit: Habit)
+    suspend fun insertHabit(habit: Habit)
 
     @Query("SELECT * from Habit ORDER BY id DESC")
-    fun selectAllHabits(): List<Habit>
-
-    @Query("SELECT * from Habit WHERE habitType = 1 ORDER BY id DESC")
-    fun selectBadHabits(): List<Habit>
-
-    @Query("SELECT * FROM Habit WHERE habitType = 0 ORDER BY id DESC")
-    fun selectGoodHabits(): List<Habit>
-
-    @Delete
-    fun deleteHabit(habit: Habit)
+    suspend fun selectAllHabits(): List<Habit>
 
     @Update
-    fun updateHabit(habit: Habit)
+    suspend fun updateHabit(habit: Habit)
 
 }

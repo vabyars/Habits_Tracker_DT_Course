@@ -5,11 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
-import com.example.habits_tracker_dt_course.Habit
+import com.example.habits_tracker_dt_course.model.Habit
+import com.example.habits_tracker_dt_course.api.ApiService
+import com.example.habits_tracker_dt_course.model.HabitMapper
+import com.example.habits_tracker_dt_course.model.ServerHabit
+import com.example.habits_tracker_dt_course.repository.Repository
 import com.example.habits_tracker_dt_course.store.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -18,34 +22,70 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val currentHabits: LiveData<MutableList<Habit>> get() = currentHabitsLiveData
 
     private val appDatabase = AppDatabase.getHabitsDatabase(application.applicationContext)
-    private val habitsDao = appDatabase.habitsDao()
+    private val repository = Repository(
+        appDatabase.habitsDao(),
+        ApiService.create().create(ApiService::class.java)
+    )
 
     init {
         viewModelScope.launch(Dispatchers.IO){
-            currentHabitsLiveData.postValue(habitsDao.selectAllHabits().toMutableList())
+            val habits = repository.getHabitsFromApi()
+
+            habits.body()?.let { serverHabits ->
+                repository.deleteAllHabitsFromDB()
+                serverHabits.forEach { serverHabit ->
+                    val habit = HabitMapper.serverHabitToHabit(serverHabit)
+                    repository.insertHabitIntoDB(habit)
+                }
+            }
+
+            currentHabitsLiveData.postValue(repository.getHabitsFromDB().toMutableList())
         }
     }
 
 
     fun addHabit(newHabit: Habit) {
-        cleanHabitsFilter()
+
         viewModelScope.launch(Dispatchers.IO){
-            habitsDao.insertHabit(newHabit)
+            val serverHabit = ServerHabit(
+                uid = null,
+                title = newHabit.title,
+                description = newHabit.description,
+                priority = newHabit.priority.value,
+                type = newHabit.habitType.value,
+                count = newHabit.repetitionCount,
+                frequency = newHabit.frequency,
+                date = 0,
+                doneDates = mutableListOf(),
+                color = 0,
+            )
+            val habitUid = repository.insertHabitIntoApi(serverHabit).body()
+            newHabit.uid = habitUid!!.uid
+            repository.insertHabitIntoDB(newHabit)
+            cleanHabitsFilter()
         }
     }
 
     fun replaceHabit(newHabit: Habit) {
-        cleanHabitsFilter()
         viewModelScope.launch(Dispatchers.IO){
-            habitsDao.updateHabit(newHabit)
+            repository.insertHabitIntoApi(HabitMapper.habitToServerHabit(newHabit))
+            repository.updateHabitInDB(newHabit)
+            cleanHabitsFilter()
         }
 
+    }
+
+    fun deleteHabit(habitToDelete: Habit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteHabitFromDB(habitToDelete)
+            cleanHabitsFilter()
+        }
     }
 
     fun sortHabits(text: String) { //Поиск по привычкам
         viewModelScope.launch(Dispatchers.IO) {
             if (text.isNotEmpty()) {
-                val sortedHabits =  habitsDao.selectAllHabits().filter {
+                val sortedHabits =  repository.getHabitsFromDB().filter {
                     it.title.contains(text, ignoreCase = true)
                 }
                 currentHabitsLiveData.postValue(sortedHabits.toMutableList())
@@ -57,7 +97,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun cleanHabitsFilter() {
         viewModelScope.launch(Dispatchers.IO){
-            currentHabitsLiveData.postValue(habitsDao.selectAllHabits().toMutableList())
+            currentHabitsLiveData.postValue(repository.getHabitsFromDB().toMutableList())
         }
     }
 

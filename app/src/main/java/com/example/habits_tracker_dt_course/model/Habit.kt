@@ -1,4 +1,4 @@
-package com.example.habits_tracker_dt_course
+package com.example.habits_tracker_dt_course.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -15,8 +15,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 @TypeConverters(HabitConverter::class)
 data class Habit(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    @PrimaryKey
+    var uid : String,
     val title: String,
     val description: String,
     val priority: HabitPriority,

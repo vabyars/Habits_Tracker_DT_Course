@@ -6,8 +6,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.habits_tracker_dt_course.Habit
-import com.example.habits_tracker_dt_course.HabitConverter
+import com.example.habits_tracker_dt_course.model.Habit
+import com.example.habits_tracker_dt_course.model.HabitConverter
 
 @Database(entities = [Habit::class], version = AppDatabase.VERSION)
 @TypeConverters(HabitConverter::class)
@@ -17,7 +17,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private const val DB_NAME = "habits.db"
-        const val VERSION: Int = 1
+        const val VERSION: Int = 2
 
         private var INSTANCE: AppDatabase? = null
 

@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.habits_tracker_dt_course.Habit
+import com.example.habits_tracker_dt_course.model.Habit
 import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.constants.HabitPriority
 import com.example.habits_tracker_dt_course.constants.HabitType
 import com.example.habits_tracker_dt_course.viewModels.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_add_habit.*
+import java.util.*
 
 
 class AddEditFragment : Fragment(R.layout.activity_add_habit) {
@@ -69,7 +70,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
             && habitFrequency != null
         ) {
             return Habit(
-                habitToEdit?.id,
+                habitToEdit?.uid ?: UUID.randomUUID().toString(),
                 title,
                 description,
                 priority, habitType, repetitionCount, habitFrequency

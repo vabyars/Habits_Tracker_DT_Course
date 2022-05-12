@@ -14,7 +14,7 @@
             app:destination="@id/addEditFragment" />
         <argument
             android:name="habit"
-            app:argType="com.example.habits_tracker_dt_course.Habit"
+            app:argType="com.example.habits_tracker_dt_course.model.Habit"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -28,7 +28,7 @@
         tools:layout="@layout/activity_add_habit" >
         <argument
             android:name="habitToEdit"
-            app:argType="com.example.habits_tracker_dt_course.Habit"
+            app:argType="com.example.habits_tracker_dt_course.model.Habit"
             app:nullable="true"
             android:defaultValue="@null" />
         <argument

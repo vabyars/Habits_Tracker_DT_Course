@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.habits_tracker_dt_course.Habit
 import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.adapters.HabitListAdapter
 import com.example.habits_tracker_dt_course.constants.HabitType

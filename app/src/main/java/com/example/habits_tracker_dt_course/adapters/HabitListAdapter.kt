@@ -3,13 +3,11 @@ package com.example.habits_tracker_dt_course.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.habits_tracker_dt_course.Habit
+import com.example.habits_tracker_dt_course.model.Habit
 import com.example.habits_tracker_dt_course.R
 import com.example.habits_tracker_dt_course.constants.HabitPriority
-import com.example.habits_tracker_dt_course.constants.HabitType
 import com.example.habits_tracker_dt_course.fragments.HabitsMainFragmentDirections
 import kotlinx.android.synthetic.main.habit_list_item.view.*
 

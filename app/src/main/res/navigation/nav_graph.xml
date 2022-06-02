@@ -6,7 +6,7 @@
     app:startDestination="@id/fragmentHabitsMain">
     <fragment
         android:id="@+id/fragmentHabitsMain"
-        android:name="com.example.habits_tracker_dt_course.fragments.HabitsMainFragment"
+        android:name="com.example.habits_tracker_dt_course.ui.fragments.MainFragment"
         android:label="My habits"
         tools:layout="@layout/fragment_habits_main" >
         <action
@@ -14,7 +14,7 @@
             app:destination="@id/addEditFragment" />
         <argument
             android:name="habit"
-            app:argType="com.example.habits_tracker_dt_course.model.Habit"
+            app:argType="model.Habit"
             app:nullable="true"
             android:defaultValue="@null" />
         <action
@@ -23,12 +23,12 @@
     </fragment>
     <fragment
         android:id="@+id/addEditFragment"
-        android:name="com.example.habits_tracker_dt_course.fragments.AddEditFragment"
+        android:name="com.example.habits_tracker_dt_course.ui.fragments.AddEditFragment"
         android:label="{dynamicTitle}"
         tools:layout="@layout/activity_add_habit" >
         <argument
             android:name="habitToEdit"
-            app:argType="com.example.habits_tracker_dt_course.model.Habit"
+            app:argType="model.Habit"
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutAppFragment"
-        android:name="com.example.habits_tracker_dt_course.fragments.AboutAppFragment"
+        android:name="com.example.habits_tracker_dt_course.ui.fragments.AboutAppFragment"
         android:label="@string/about_app"
         tools:layout="@layout/fragment_about_app" />
 </navigation>

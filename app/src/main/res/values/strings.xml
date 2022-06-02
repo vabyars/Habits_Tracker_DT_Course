@@ -27,6 +27,13 @@
     <string name="app_description">Create a habit list to build good habits and healthy lifestyle with Habit tracker</string>
     <string name="app_version_text">HabitsTracker v4.0</string>
     <string name="git_link_text">Github: github.com/vabyars </string>
+    <string name="you_are_breathtaking" translatable="false">You are breathtaking!</string>
+    <string name="you_should_not_do_this_habit_more">You should not do this habit more</string>
+    <string name="you_have_already_done_enough">You have already done enough</string>
+    <string name="stop_doing_this_habit">Stop performing this habit</string>
+    <string name="you_have_to_do_this_habit">You should do this habit %1$s more time(s)</string>
+    <string name="you_can_do_this_habit">You can do this habit %1$s more time(s)</string>
+    <string name="undo">undo</string>
 
     <string name="find_or_filter_title">Find or filter habits</string>
     <string name="search">Search</string>

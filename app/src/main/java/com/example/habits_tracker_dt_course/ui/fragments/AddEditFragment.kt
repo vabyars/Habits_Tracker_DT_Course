@@ -1,28 +1,37 @@
-package com.example.habits_tracker_dt_course.fragments
+package com.example.habits_tracker_dt_course.ui.fragments
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.habits_tracker_dt_course.model.Habit
 import com.example.habits_tracker_dt_course.R
-import com.example.habits_tracker_dt_course.constants.HabitPriority
-import com.example.habits_tracker_dt_course.constants.HabitType
-import com.example.habits_tracker_dt_course.viewModels.MainViewModel
+import com.example.habits_tracker_dt_course.ui.viewModels.MainViewModel
+
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_add_habit.*
+import model.Habit
+import model.constants.HabitPriority
+import model.constants.HabitType
 import java.util.*
+import javax.inject.Inject
 
 
-class AddEditFragment : Fragment(R.layout.activity_add_habit) {
+class AddEditFragment : DaggerFragment(R.layout.activity_add_habit) {
 
     private val args: AddEditFragmentArgs by navArgs()
     private val habitToEdit by lazy { args.habitToEdit  }
-    private val mainViewModel: MainViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val mainViewModel: MainViewModel by activityViewModels() {
+        viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +82,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
                 habitToEdit?.uid ?: UUID.randomUUID().toString(),
                 title,
                 description,
-                priority, habitType, repetitionCount, habitFrequency
+                priority, habitType, repetitionCount, habitFrequency, date = 0, doneDates = mutableListOf()
             )
         }
         return null
@@ -88,7 +97,7 @@ class AddEditFragment : Fragment(R.layout.activity_add_habit) {
 
             habitPriorities.setSelection(it.priority.value)
 
-            when(it.habitType){
+            when(it.type){
                 HabitType.Useful -> usefulRadio.isChecked = true
                 HabitType.Harmful -> harmfulRadio.isChecked = true
             }

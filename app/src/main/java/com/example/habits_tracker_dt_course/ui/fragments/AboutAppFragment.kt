@@ -1,4 +1,4 @@
-package com.example.habits_tracker_dt_course.fragments
+package com.example.habits_tracker_dt_course.ui.fragments
 
 import androidx.fragment.app.Fragment
 import com.example.habits_tracker_dt_course.R
